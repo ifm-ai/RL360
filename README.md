@@ -30,6 +30,7 @@ The bundled components (miles, megatron, sglang etc) are checked in as ordinary 
 | [`src/agent360/search/`](src/agent360/search/) | Retrieval index construction and serving |
 | [`src/miles360/reward/`](src/miles360/reward/) | Task-specific reward functions and grading utilities |
 | [`src/miles360/token_mean_reducer.py`](src/miles360/token_mean_reducer.py) | Token-level loss reduction |
+| [`src/merge360/`](src/merge360/README.md) | Weight merging of RL expert checkpoints (model soup, task arithmetic, TIES, RAM, ULP-gate, Gram-soup, ISO) |
 | [`components/miles/`](components/miles/) | Rollout orchestration and RL training entry points |
 | [`components/megatron-lm/`](components/megatron-lm/) | Distributed model training |
 | [`components/sglang/`](components/sglang/) | Inference runtime and kernels |
@@ -38,9 +39,11 @@ The bundled components (miles, megatron, sglang etc) are checked in as ordinary 
 
 ## Architecture
 
-Miles manages rollouts and training, Megatron-LM updates the policy, SMG routes requests to SGLang, and Harbor runs tasks and verifiers in sandboxes.
+Miles coordinates rollouts and training on Ray. It sends task prompts to RL360 and Harbor agent workers, which run tools and verifiers through a sandboxing service. Agents make LLM calls through session servers that record tokens and log-probabilities and return trajectories to Miles. SMG routes those requests to SGLang inference engines. Megatron-LM trains on batches from Miles and synchronizes the updated policy weights to SGLang.
 
-![RL360 architecture: Miles manages rollouts, Harbor runs agents and task sandboxes, SMG routes inference to SGLang, and Megatron-LM trains and synchronizes policy weights.](assets/architecture.svg)
+![RL360 architecture: Miles sends task prompts to RL360 and Harbor agent workers, which use a sandboxing service for tools and verification. Agents make LLM calls through session servers, which record tokens and logprobs, forward requests to the SMG gateway and return trajectories to Miles. SMG routes requests to SGLang inference engines. Megatron-LM trains on batches from Miles and synchronizes policy weights to SGLang.](assets/architecture.svg)
+
+Expert checkpoints trained this way can be combined into one model with [`merge360`](src/merge360/README.md).
 
 ## Run the coding recipe
 
@@ -176,6 +179,21 @@ export RL360_CONTEXT_LENGTH=32768
 ```
 
 The task and launch steps stay the same. The Qwen example uses a 32K context window and its own architecture and parser settings.
+
+## Citation
+
+If you use RL360, please cite it:
+
+```bibtex
+@misc{pimpalkhute2026rl360,
+  title        = {RL360: Reinforcement Learning for Agentic Post-Training},
+  author       = {Pimpalkhute, Varad and Pangarkar, Omkar and Kim, Junu and Bellamy, David and Hee, Ming Shan and Yang, Matthew and Bhandari, Jalaj and Gao, Chengqian and Wang, Zhenting and Srivastava, Rupesh},
+  year         = {2026},
+  organization = {Institute of Foundation Models, MBZUAI},
+  howpublished = {\url{https://github.com/ifm-ai/RL360}},
+  note         = {Software}
+}
+```
 
 ## License
 
