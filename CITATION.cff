@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use RL360, please cite it as below."
+type: software
+title: "RL360: Reinforcement Learning for Agentic Post-Training"
+authors:
+  - {family-names: Pimpalkhute, given-names: Varad}
+  - {family-names: Pangarkar, given-names: Omkar}
+  - {family-names: Kim, given-names: Junu}
+  - {family-names: Bellamy, given-names: David}
+  - {family-names: Hee, given-names: Ming Shan}
+  - {family-names: Yang, given-names: Matthew}
+  - {family-names: Bhandari, given-names: Jalaj}
+  - {family-names: Gao, given-names: Chengqian}
+  - {family-names: Wang, given-names: Zhenting}
+  - {family-names: Srivastava, given-names: Rupesh}
+repository-code: "https://github.com/ifm-ai/RL360"
+license: Apache-2.0
+year: 2026
