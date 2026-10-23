@@ -180,20 +180,6 @@ export RL360_CONTEXT_LENGTH=32768
 
 The task and launch steps stay the same. The Qwen example uses a 32K context window and its own architecture and parser settings.
 
-## Citation
-
-If you use RL360, please cite it:
-
-```bibtex
-@misc{pimpalkhute2026rl360,
-  title        = {RL360: Reinforcement Learning for Agentic Post-Training},
-  author       = {Pimpalkhute, Varad and Pangarkar, Omkar and Kim, Junu and Bellamy, David and Hee, Ming Shan and Yang, Matthew and Bhandari, Jalaj and Gao, Chengqian and Wang, Zhenting and Srivastava, Rupesh},
-  year         = {2026},
-  organization = {Institute of Foundation Models, MBZUAI},
-  howpublished = {\url{https://github.com/ifm-ai/RL360}},
-  note         = {Software}
-}
-```
 
 ## License
 
